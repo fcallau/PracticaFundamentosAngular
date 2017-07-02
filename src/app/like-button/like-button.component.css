@@ -1,0 +1,8 @@
+button {
+	background-color: #093;
+	font-size: 1rem;
+}
+
+button:hover, button:focus {
+	background-color: #060;
+}

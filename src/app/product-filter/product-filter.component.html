@@ -1,0 +1,42 @@
+<div>
+  <div class="row">
+    <div class="small-6 medium-2 large-2 columns">
+      <input [(ngModel)]="productFilter.text" type="text" placeholder="Pe. Uncharted">
+    </div>
+    <div class="small-6 medium-2 large-2 columns">
+      <select [(ngModel)]="productFilter.category">
+        <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
+      </select>
+    </div>
+
+    <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|
+    | Red Wine Path                                                    |
+    |~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+    <div class="small-6 medium-2 large-2 columns">
+      <select [(ngModel)]="productFilter.state">
+        <option *ngFor="let state of states" [value]="state.id">{{ state.name }}</option>
+      </select>
+    </div>
+    <div class="small-6 medium-2 large-1 columns">
+      <input [(ngModel)]="productFilter.minPrecio" type="text" placeholder="Min.Prec.">
+    </div>
+    <div class="small-6 medium-2 large-1 columns">
+      <input [(ngModel)]="productFilter.maxPrecio" type="text" placeholder="Max.Prec.">
+    </div>
+    <div class="small-6 medium-2 large-2 columns">
+      <select [(ngModel)]="productFilter.sortField">
+        <option *ngFor="let sortField of sortFields" [value]="sortField.id">{{ sortField.name }}</option>
+      </select>
+    </div>
+    <!-- En el caso de querer añadir la ordenación (precio o alfabética) ascendente o descendente se añadiría el siguiente elemento.
+    <div class="small-6 medium-2 large-1 columns">
+      <select [(ngModel)]="productFilter.sortFieldOrder">
+        <option *ngFor="let sortFieldOrder of sortFieldOrders" [value]="sortFieldOrder.id">{{ sortFieldOrder.name }}</option>
+      </select>
+    </div>-->
+     <div class="small-12 medium-3 large-2 columns">
+      <button (click)="notifyHost()" class="button expanded">Buscar</button>
+    </div>
+  </div>
+</div>
