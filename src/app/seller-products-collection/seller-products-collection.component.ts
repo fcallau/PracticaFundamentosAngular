@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnChanges, Input, Output, EventEmitter, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/switchMap';
@@ -13,7 +13,7 @@ import { ProductFilterPipe } from '../product-filter.pipe';
   templateUrl: './seller-products-collection.component.html',
   styleUrls: ['./seller-products-collection.component.css']
 })
-export class SellerProductsCollectionComponent implements OnInit {
+export class SellerProductsCollectionComponent implements OnInit, OnChanges {
 
   @Input() sellerId: number;
   @Input() productIdToExclude: number;
@@ -21,12 +21,20 @@ export class SellerProductsCollectionComponent implements OnInit {
 
   products: Product[];
   private _filterStream$: Subject<ProductFilter> = new Subject;
-  productFilterParam: ProductFilter = { };
+  productFilterParam: ProductFilter = {};
 
   constructor(
     private _productService: ProductService,
     private _router: Router,
     private _productFilterPipe: ProductFilterPipe) { }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['productIdToExclude'] && changes['productIdToExclude']['currentValue']) {
+      this.productFilterParam.sellerId = this.sellerId.toString();
+      this.productFilterParam.excludeProductId = this.productIdToExclude.toString();
+      this.filterCollection(this.productFilterParam);
+    }
+  }
 
   ngOnInit(): void {
     this.productFilterParam.sellerId = this.sellerId.toString();
